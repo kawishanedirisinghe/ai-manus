@@ -241,50 +241,60 @@ cp .env.example .env
 
 <!-- .env.example -->
 ```env
-# Model provider configuration
-API_KEY=
-API_BASE=http://mockserver:8090/v1
+# Multi-API Key Configuration for Replit Deployment
+# Copy this file to .env and fill in your actual API keys
 
-# Model configuration
-MODEL_NAME=deepseek-chat
-TEMPERATURE=0.7
-MAX_TOKENS=2000
+# OpenAI API Keys (add more as needed)
+OPENAI_API_KEY_1=sk-your-openai-key-1
+OPENAI_API_KEY_2=sk-your-openai-key-2
+OPENAI_API_KEY_3=sk-your-openai-key-3
 
-# MongoDB configuration
-#MONGODB_URI=mongodb://mongodb:27017
-#MONGODB_DATABASE=manus
-#MONGODB_USERNAME=
-#MONGODB_PASSWORD=
+# Anthropic API Keys
+ANTHROPIC_API_KEY_1=sk-ant-your-anthropic-key-1
+ANTHROPIC_API_KEY_2=sk-ant-your-anthropic-key-2
 
-# Redis configuration
-#REDIS_HOST=redis
-#REDIS_PORT=6379
-#REDIS_DB=0
-#REDIS_PASSWORD=
+# Google API Keys
+GOOGLE_API_KEY_1=your-google-api-key-1
+GOOGLE_API_KEY_2=your-google-api-key-2
 
-# Sandbox configuration
-#SANDBOX_ADDRESS=
-SANDBOX_IMAGE=simpleyyt/manus-sandbox
-SANDBOX_NAME_PREFIX=sandbox
-SANDBOX_TTL_MINUTES=30
-SANDBOX_NETWORK=manus-network
-#SANDBOX_CHROME_ARGS=
-#SANDBOX_HTTPS_PROXY=
-#SANDBOX_HTTP_PROXY=
-#SANDBOX_NO_PROXY=
+# Rate Limiting Configuration
+RATE_LIMIT_ENABLED=true
+MAX_REQUESTS_PER_MINUTE=1000
+MAX_TOKENS_PER_MINUTE=100000
 
-# Search engine configuration
-# Options: baidu, google
-SEARCH_PROVIDER=baidu
-# Optional: Google search configuration (only needed when SEARCH_PROVIDER=google)
-#GOOGLE_SEARCH_API_KEY=
-#GOOGLE_SEARCH_ENGINE_ID=
+# Retry Configuration
+RETRY_ATTEMPTS=3
+RETRY_DELAY=1.0
+BACKOFF_FACTOR=2.0
 
-# MCP configuration
-#MCP_CONFIG_PATH=/etc/mcp.json
-
-# Log configuration
+# Logging Configuration
 LOG_LEVEL=INFO
+LOG_FORMAT=json
+
+# Application Configuration
+APP_NAME=ai-manus
+APP_VERSION=1.0.0
+ENVIRONMENT=production
+
+# Docker Configuration
+DOCKER_COMPOSE_FILE=docker-compose.yml
+DOCKER_BUILDX_NO_DEFAULT_ATTESTATIONS=1
+
+# MongoDB Configuration (if using)
+MONGODB_URL=mongodb://localhost:27017
+MONGODB_DB_NAME=ai_manus
+
+# Redis Configuration (if using)
+REDIS_URL=redis://localhost:6379
+REDIS_DB=0
+
+# Security
+SECRET_KEY=your-secret-key-here
+JWT_SECRET=your-jwt-secret-here
+
+# External Services
+WEB_SEARCH_API_KEY=your-web-search-api-key
+BROWSER_API_KEY=your-browser-api-key
 ```
 <!-- /.env.example -->
 
