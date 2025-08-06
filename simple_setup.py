@@ -37,39 +37,63 @@ def install_dependencies_nix():
     """Install dependencies in Nix environment"""
     print("📦 Installing dependencies (Nix environment)...")
     
-    try:
-        print("   Installing required packages with --user flag...")
-        # Install essential packages only to avoid conflicts
-        essential_packages = [
-            "requests>=2.31.0",
-            "aiohttp>=3.8.0", 
-            "python-dotenv>=1.0.0",
-            "rich>=13.0.0"
-        ]
-        
-        for package in essential_packages:
-            print(f"   Installing {package}...")
-            result = subprocess.run([
-                sys.executable, "-m", "pip", "install", "--user", package
-            ], check=True, capture_output=True, text=True)
-        
-        print("   ✅ Essential dependencies installed successfully")
-        return True
-    except subprocess.CalledProcessError as e:
-        print(f"   ❌ Failed to install dependencies: {e}")
-        # Try alternative approach
-        print("   Trying alternative installation...")
+    # Essential packages only to avoid conflicts
+    essential_packages = [
+        "requests>=2.31.0",
+        "aiohttp>=3.8.0", 
+        "python-dotenv>=1.0.0",
+        "rich>=13.0.0"
+    ]
+    
+    # Try different installation methods in order of preference
+    installation_methods = [
+        # Method 1: Standard user installation
+        {
+            "name": "standard user installation",
+            "args": [sys.executable, "-m", "pip", "install", "--user"]
+        },
+        # Method 2: User installation with break-system-packages
+        {
+            "name": "user installation with --break-system-packages",
+            "args": [sys.executable, "-m", "pip", "install", "--user", "--break-system-packages"]
+        },
+        # Method 3: System-wide installation with break-system-packages
+        {
+            "name": "system installation with --break-system-packages",
+            "args": [sys.executable, "-m", "pip", "install", "--break-system-packages"]
+        }
+    ]
+    
+    for method in installation_methods:
         try:
-            subprocess.run([
-                sys.executable, "-m", "pip", "install", "--user", "--break-system-packages",
-                "requests", "aiohttp", "python-dotenv", "rich"
-            ], check=True, capture_output=True, text=True)
-            print("   ✅ Dependencies installed with --break-system-packages")
+            print(f"   Trying {method['name']}...")
+            for package in essential_packages:
+                print(f"   Installing {package}...")
+                result = subprocess.run(
+                    method["args"] + [package],
+                    check=True, capture_output=True, text=True
+                )
+            
+            print(f"   ✅ Dependencies installed successfully using {method['name']}")
             return True
-        except subprocess.CalledProcessError:
-            print("   ⚠️  Dependency installation failed, but continuing...")
-            print("   The application may work with system packages")
-            return True
+            
+        except subprocess.CalledProcessError as e:
+            print(f"   ❌ Failed with {method['name']}: {e}")
+            if "externally-managed-environment" in str(e):
+                print("   Environment is externally managed, trying next method...")
+            continue
+    
+    # If all methods fail, try to continue anyway
+    print("   ⚠️  All installation methods failed, checking for existing packages...")
+    try:
+        # Check if essential packages are already available
+        import requests
+        print("   ✅ Found existing requests package")
+        return True
+    except ImportError:
+        print("   ⚠️  No existing packages found, but continuing...")
+        print("   The application may not work properly without dependencies")
+        return False
 
 def create_api_config():
     """Create API configuration with provided keys"""
