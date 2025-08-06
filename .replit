@@ -1,0 +1,6 @@
+language = "python3"
+run = "python main.py"
+entrypoint = "main.py"
+hidden = [".config", ".pythonlibs"]
+compile = ""
+modules = ["python3", "nodejs-18", "docker"]

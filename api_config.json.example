@@ -1,0 +1,35 @@
+{
+  "openai_keys": [
+    "sk-your-openai-key-1",
+    "sk-your-openai-key-2",
+    "sk-your-openai-key-3"
+  ],
+  "anthropic_keys": [
+    "sk-ant-your-anthropic-key-1",
+    "sk-ant-your-anthropic-key-2"
+  ],
+  "google_keys": [
+    "your-google-api-key-1",
+    "your-google-api-key-2"
+  ],
+  "current_openai_index": 0,
+  "current_anthropic_index": 0,
+  "current_google_index": 0,
+  "rate_limits": {
+    "openai": {
+      "requests_per_minute": 3000,
+      "tokens_per_minute": 150000
+    },
+    "anthropic": {
+      "requests_per_minute": 1000,
+      "tokens_per_minute": 100000
+    },
+    "google": {
+      "requests_per_minute": 1500,
+      "tokens_per_minute": 120000
+    }
+  },
+  "fallback_strategy": "round_robin",
+  "retry_attempts": 3,
+  "retry_delay": 1.0
+}
