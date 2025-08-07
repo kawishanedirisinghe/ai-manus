@@ -1,0 +1,44 @@
+# AI Manus Configuration - Example File
+# Copy this to config.toml and replace with your actual API keys
+
+[llm.gemini.model1]
+model = "gemini-2.5-pro"
+api_key = "YOUR_GOOGLE_API_KEY_1_HERE"
+temperature = 0.7
+max_tokens = 4096
+enable_safety_settings = true
+
+[llm.gemini.model2]
+model = "gemini-2.5-pro" 
+api_key = "YOUR_GOOGLE_API_KEY_1_HERE"
+temperature = 0.7
+max_tokens = 4096
+enable_safety_settings = true
+
+[llm.gemini.model3]
+model = "gemini-2.5-pro"
+api_key = "YOUR_GOOGLE_API_KEY_2_HERE"
+temperature = 0.7
+max_tokens = 4096
+enable_safety_settings = true
+
+[llm.gemini.model4]
+model = "gemini-2.5-pro"
+api_key = "YOUR_GOOGLE_API_KEY_3_HERE"
+temperature = 0.7
+max_tokens = 4096
+enable_safety_settings = true
+
+[llm.gemini.model5]
+model = "gemini-2.5-pro"
+api_key = "YOUR_GOOGLE_API_KEY_4_HERE"
+temperature = 0.7
+max_tokens = 4096
+enable_safety_settings = true
+
+[llm.gemini.model6]
+model = "gemini-2.5-pro"
+api_key = "YOUR_GOOGLE_API_KEY_5_HERE"
+temperature = 0.7
+max_tokens = 4096
+enable_safety_settings = true

@@ -1,0 +1,28 @@
+{
+  "google_api_keys": [
+    "YOUR_GOOGLE_API_KEY_1_HERE",
+    "YOUR_GOOGLE_API_KEY_2_HERE", 
+    "YOUR_GOOGLE_API_KEY_3_HERE",
+    "YOUR_GOOGLE_API_KEY_4_HERE",
+    "YOUR_GOOGLE_API_KEY_5_HERE"
+  ],
+  "openai_api_keys": [
+    "sk-your-openai-key-1",
+    "sk-your-openai-key-2"
+  ],
+  "anthropic_api_keys": [
+    "sk-ant-your-anthropic-key-1",
+    "sk-ant-your-anthropic-key-2"
+  ],
+  "deepseek_api_keys": [
+    "sk-your-deepseek-key-1",
+    "sk-your-deepseek-key-2"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 60,
+    "requests_per_hour": 1000,
+    "requests_per_day": 10000
+  },
+  "fallback_enabled": true,
+  "retry_attempts": 3
+}
