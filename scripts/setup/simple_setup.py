@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Simplified AI Manus Setup - One-click setup for Nix environments
-Automatically handles dependencies and configuration with provided API keys
+Automatically handles dependencies and configuration with environment variables
 """
 
 import os
@@ -11,14 +11,20 @@ import json
 import shutil
 from pathlib import Path
 
-# Your provided API keys
-GEMINI_API_KEYS = [
-    "AIzaSyAwd6PcBM-07xBbbuBqBPc3svJsUMvyc1E",
-    "AIzaSyDwDj4i9tptBolcKGHMlqxMOi_CjisQdJE", 
-    "AIzaSyClSfseWKkublCjdZBIq-aYqPoB3jEWj28",
-    "AIzaSyD_ElDcTSosqzd4Dy9L-4ygL3fP2zsWtq0",
-    "AIzaSyAf__tW7KcUD1-uh9RzGg6Y5eS6e3_PNB0"
-]
+def get_api_keys_from_env():
+    """Get API keys from environment variables"""
+    gemini_keys = []
+    for i in range(1, 6):  # Check for up to 5 keys
+        key = os.getenv(f'GOOGLE_API_KEY_{i}')
+        if key and key != f'AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX':  # Not placeholder
+            gemini_keys.append(key)
+    
+    if not gemini_keys:
+        print("⚠️  No Google API keys found in environment variables.")
+        print("   Please set GOOGLE_API_KEY_1, GOOGLE_API_KEY_2, etc. in your .env file")
+        return []
+    
+    return gemini_keys
 
 def print_header():
     """Print setup header"""
@@ -99,6 +105,13 @@ def create_api_config():
     """Create API configuration with provided keys"""
     print("🔑 Setting up API configuration...")
     
+    # Get API keys from environment variables
+    GEMINI_API_KEYS = get_api_keys_from_env()
+    
+    if not GEMINI_API_KEYS:
+        print("❌ No valid Google API keys found. Exiting setup.")
+        return False
+
     config = {
         "llm": {
             "model": "gemini-2.5-pro",
@@ -172,6 +185,13 @@ def create_env_file():
     """Create environment file"""
     print("📄 Creating environment file...")
     
+    # Get API keys from environment variables
+    GEMINI_API_KEYS = get_api_keys_from_env()
+    
+    if not GEMINI_API_KEYS:
+        print("❌ No valid Google API keys found. Exiting setup.")
+        return False
+
     env_content = f"""# AI Manus Environment Configuration
 # Primary API Key
 GEMINI_API_KEY={GEMINI_API_KEYS[0]}
@@ -295,6 +315,8 @@ def print_success():
     print("   python3 start.py status  # Check status")
     print()
     print("🔑 API KEYS CONFIGURED:")
+    # Get API keys from environment variables
+    GEMINI_API_KEYS = get_api_keys_from_env()
     for i, key in enumerate(GEMINI_API_KEYS, 1):
         print(f"   Key {i}: {key[:20]}...")
     print()
